@@ -4,7 +4,7 @@ import {
   identities,
   manifest,
   type MicrofrontendEntry,
-} from '@mfe-orchestrator-hub/client';
+} from '@mfe-orchestrator/client';
 
 @Component({
   selector: 'app-manifest-panel',
