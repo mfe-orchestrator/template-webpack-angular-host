@@ -68,6 +68,9 @@ import { configure } from '@mfe-orchestrator-hub/client';
 configure(MFE_ENV);
 ```
 
+`MFE_ENV` carries `backendUrl` and `projectId`, and an `environment` only if you set one — see
+[The environment is optional](#the-environment-is-optional).
+
 **2. The remote, declared in `webpack.config.js` as a promise that resolves to a URL:**
 
 ```js
@@ -97,11 +100,29 @@ Read from the shell at build time and injected by webpack's `DefinePlugin`. See 
 | --- | --- |
 | `MFE_BACKEND_URL` | orchestrator backend, including the `/api` suffix |
 | `MFE_PROJECT_ID` | id of your project in the orchestrator |
-| `MFE_ENVIRONMENT` | environment slug, ex. `DEV` |
+| `MFE_ENVIRONMENT` | **optional** — orchestrator environment slug, ex. `DEV`. See below |
 
 ```bash
-MFE_PROJECT_ID=abc123 MFE_ENVIRONMENT=DEV pnpm build
+MFE_PROJECT_ID=abc123 pnpm build                      # environment resolved by domain
+MFE_PROJECT_ID=abc123 MFE_ENVIRONMENT=DEV pnpm build  # environment pinned at build time
 ```
+
+### The environment is optional
+
+`MFE_ENVIRONMENT` is the slug of an **orchestrator** environment. It has nothing to do with
+Angular's own `src/environments/*` configuration files — this template has none of those, and the
+two must not be confused.
+
+Leave `MFE_ENVIRONMENT` unset and the SDK omits the environment: the backend then resolves it from
+the domain the page is served on, matching it against the domains declared for each environment in
+the console. One build artifact can therefore be promoted across DEV, STAGE and PROD unchanged.
+
+Set it when the host already knows where it runs, or when a single domain serves more than one
+environment and the backend cannot tell them apart.
+
+`webpack.config.js` only adds the `environment` key to the injected `MFE_ENV` object when the
+variable is actually set, so `configure()` never receives an empty string or the string
+`"undefined"` — either of which the SDK would take for a real slug.
 
 `.env` is gitignored. Never commit real values.
 
