@@ -3,7 +3,7 @@ import {
   globalVariables,
   identities,
   manifest,
-  type MicrofrontendEntry,
+  type Microfrontend,
 } from '@mfe-orchestrator-hub/client';
 
 @Component({
@@ -46,7 +46,7 @@ import {
   ],
 })
 export class ManifestPanelComponent implements OnInit {
-  readonly microfrontends = signal<MicrofrontendEntry[]>([]);
+  readonly microfrontends = signal<Microfrontend[]>([]);
   readonly variables = signal<Array<[string, string]>>([]);
   readonly error = signal('');
   readonly ids = identities();
