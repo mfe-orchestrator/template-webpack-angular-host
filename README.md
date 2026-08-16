@@ -42,7 +42,7 @@ pnpm build      # production build into dist/
 ├── .env.example
 ├── package.json
 ├── tsconfig.json
-└── webpack.config.js                        # federation config
+└── webpack.config.ts                        # federation config
 ```
 
 ## How the orchestrator is wired in
@@ -60,14 +60,14 @@ anything imports a remote:**
 ```ts
 import { configure } from '@mfe-orchestrator-hub/client';
 
-// MFE_ENV is injected by DefinePlugin, see webpack.config.js
+// MFE_ENV is injected by DefinePlugin, see webpack.config.ts
 configure(MFE_ENV);
 ```
 
 `MFE_ENV` carries `backendUrl` and `projectId`, and an `environment` only if you set one — see
 [The environment is optional](#the-environment-is-optional).
 
-**2. The remote, declared in `webpack.config.js` as a promise that resolves to a URL:**
+**2. The remote, declared in `webpack.config.ts` as a promise that resolves to a URL:**
 
 ```js
 new ModuleFederationPlugin({
@@ -116,7 +116,7 @@ the console. One build artifact can therefore be promoted across DEV, STAGE and 
 Set it when the host already knows where it runs, or when a single domain serves more than one
 environment and the backend cannot tell them apart.
 
-`webpack.config.js` only adds the `environment` key to the injected `MFE_ENV` object when the
+`webpack.config.ts` only adds the `environment` key to the injected `MFE_ENV` object when the
 variable is actually set, so `configure()` never receives an empty string or the string
 `"undefined"` — either of which the SDK would take for a real slug.
 
@@ -128,7 +128,7 @@ variable is actually set, so `configure()` never receives an empty string or the
 
 The marketplace entry for this template declares no `entryPoint`; the whole `dist/` folder is what gets uploaded.
 
-Check it after any change to `webpack.config.js`: the orchestrator serves exactly that path, so a build that
+Check it after any change to `webpack.config.ts`: the orchestrator serves exactly that path, so a build that
 puts the entry somewhere else is broken.
 
 ## Deploying

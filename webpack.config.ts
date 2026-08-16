@@ -1,24 +1,30 @@
-const { AngularWebpackPlugin } = require('@ngtools/webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+import { AngularWebpackPlugin } from '@ngtools/webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import webpack, { type Configuration } from 'webpack';
+import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
+
 const { ModuleFederationPlugin } = webpack.container;
+
+interface WebpackConfiguration extends Configuration {
+  devServer?: DevServerConfiguration;
+}
 
 // Configuration handed to the SDK's configure(), injected at build time and read in src/index.ts.
 // See .env.example.
-const mfeEnv = {
-  backendUrl: process.env.MFE_BACKEND_URL || 'https://console.mfe-orchestrator.dev/api',
-  projectId: process.env.MFE_PROJECT_ID || '',
+const mfeEnv: { backendUrl: string; projectId: string; environment?: string } = {
+  backendUrl: process.env['MFE_BACKEND_URL'] || 'https://console.mfe-orchestrator.dev/api',
+  projectId: process.env['MFE_PROJECT_ID'] || '',
 };
 
 // The orchestrator environment is optional. When MFE_ENVIRONMENT is unset the key is left out
 // entirely — the SDK then asks for the "auto" route and the backend resolves the environment from
 // the domain the page is served on. Never inject an empty string or the string "undefined" here:
 // the SDK would take it for a real slug and ask for an environment that does not exist.
-if (process.env.MFE_ENVIRONMENT) {
-  mfeEnv.environment = process.env.MFE_ENVIRONMENT;
+if (process.env['MFE_ENVIRONMENT']) {
+  mfeEnv.environment = process.env['MFE_ENVIRONMENT'];
 }
 
-module.exports = {
+const config: WebpackConfiguration = {
   entry: './src/index',
   mode: 'development',
   devServer: {
@@ -90,3 +96,5 @@ module.exports = {
     }),
   ],
 };
+
+export default config;

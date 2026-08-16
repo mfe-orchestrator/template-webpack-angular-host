@@ -21,6 +21,14 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
+  // webpack loads this config through ts-node, which runs in Node and therefore
+  // needs CommonJS, while the application code above stays ESM for the bundler.
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "moduleResolution": "node"
+    }
+  },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
