@@ -30,15 +30,14 @@
   "devDependencies": {
     "@angular/compiler-cli": "^21.2.0",
     "@ngtools/webpack": "^21.2.0",
-    "@types/node": "^24.10.1",
-    "@types/webpack-dev-server": "^4.7.2",
-    "css-loader": "^7.1.2",
-    "html-webpack-plugin": "^5.6.5",
+    "@types/node": "^26.2.0",
+    "css-loader": "^7.1.4",
+    "html-webpack-plugin": "^5.6.8",
     "style-loader": "^4.0.0",
     "ts-node": "^10.9.2",
     "typescript": "~5.9.3",
     "webpack": "^5.109.2",
-    "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-cli": "^7.2.2",
+    "webpack-dev-server": "^6.0.0"
   }
 }
