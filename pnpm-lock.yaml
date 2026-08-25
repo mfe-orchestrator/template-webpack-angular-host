@@ -21,8 +21,8 @@ importers:
         specifier: ^21.2.0
         version: 21.2.20(@angular/common@21.2.20(@angular/core@21.2.20(@angular/compiler@21.2.20)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@21.2.20(@angular/compiler@21.2.20)(rxjs@7.8.2)(zone.js@0.15.1))
       '@mfe-orchestrator-hub/client':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.2.1
+        version: 0.2.1
       rxjs:
         specifier: ^7.8.2
         version: 7.8.2
@@ -335,8 +335,8 @@ packages:
   '@leichtgewicht/ip-codec@2.0.5':
     resolution: {integrity: sha512-Vo+PSpZG2/fmgmiNzYK9qWRh8h/CHrwD0mo1h1DzL4yzHNSfWYujGTYsWGreD000gcgmZ7K4Ys6Tx9TxtsKdDw==}
 
-  '@mfe-orchestrator-hub/client@0.1.1':
-    resolution: {integrity: sha512-X4vLS/UnZPeIrTiLP5tzEH31QnBPOk3ct9vo/o7QeoKVJQYsRuIKyOWNodJg7nhgsfoBKRjnftE1pbACoqChNg==}
+  '@mfe-orchestrator-hub/client@0.2.1':
+    resolution: {integrity: sha512-rMNk0hgkYf5VffdWGkyM5b0SXPGNmy8vQj55+oF2aqhXAuxE3nNPioy1oUTq8JZEHZvCGwMiH2/vk5WuzumMWg==}
     engines: {node: '>=20.0.0'}
 
   '@ngtools/webpack@21.2.21':
@@ -2078,7 +2078,7 @@ snapshots:
 
   '@leichtgewicht/ip-codec@2.0.5': {}
 
-  '@mfe-orchestrator-hub/client@0.1.1': {}
+  '@mfe-orchestrator-hub/client@0.2.1': {}
 
   '@ngtools/webpack@21.2.21(@angular/compiler-cli@21.2.20(@angular/compiler@21.2.20)(supports-color@8.1.1)(typescript@5.9.3))(typescript@5.9.3)(webpack@5.109.2)':
     dependencies:
