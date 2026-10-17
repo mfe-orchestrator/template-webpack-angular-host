@@ -1,19 +1,19 @@
 # Webpack & Angular — host template
 
 Starter template for the [MFE Orchestrator](https://github.com/mfe-orchestrator), listed in the
-marketplace as `webpack-host-angular`. Webpack 5 + Angular 21, wired as a **host**.
+marketplace as `webpack-host-angular`. Webpack 5 + Angular 22, wired as a **host**.
 
 ## Requirements
 
-- Node.js 20 or newer
+- Node.js 22.22.3, 24.15 or newer (what Angular 22 supports)
 - [pnpm](https://pnpm.io) 10 or newer
 
 > [!NOTE]
 > The client SDK is published as `@mfe-orchestrator-hub/client` and this template depends on it at
-> `^0.1.0`. A caret on a `0.x` version is deliberately narrow: it accepts `0.1.x`
-> only, **not** `0.2.0`. The SDK is new and parts of its API are still settling, so that is the
+> `^0.2.1`. A caret on a `0.x` version is deliberately narrow: it accepts `0.2.x`
+> only, **not** `0.3.0`. The SDK is new and parts of its API are still settling, so that is the
 > intended level of caution — the cost is that you have to widen this range yourself when the SDK
-> moves to `0.2.0`, otherwise `pnpm install` fails to resolve it.
+> moves to `0.3.0`, otherwise `pnpm install` fails to resolve it.
 
 ## Getting started
 
@@ -165,7 +165,8 @@ docker run -p 8080:80 my-host
 
 ## Notes
 
-- Angular is compiled ahead of time by `AngularWebpackPlugin` from `@ngtools/webpack` — the same compiler the Angular CLI drives, wired into a plain webpack config. There is no `angular.json` and no CLI builder here.
+- Angular is compiled ahead of time by `AngularWebpackPlugin` from `@ngtools/webpack` — the same compiler the Angular CLI drives, wired into a plain webpack config. There is no `angular.json` and no CLI builder here. The Angular packages themselves ship partially compiled, so `babel-loader` runs the Angular linker (`@angular/compiler-cli/linker/babel`) over `node_modules`, as the CLI does; drop that rule and the app fails at bootstrap with "needs to be compiled using the JIT compiler".
+- Angular 22 marks `@ngtools/webpack` as deprecated in favour of the esbuild based `@angular/build`. It is still the current release and works; the Vite & Angular templates are the esbuild based alternative.
 - `configure()` runs in `src/index.ts`, before the `import('./bootstrap')` that starts the app. Keep that order: the federation runtime imports the SDK to resolve a remote and expects it already configured.
 - Remote modules are invisible to the compiler. Declare each one you import in `src/globals.d.ts`.
 - `output.publicPath` stays `'auto'`. A classic script derives the base of its chunks from `document.currentScript.src`, which is the URL *before* any redirect, so this is what keeps a version pinned entry loading its own chunks instead of mixing two builds in one page.
