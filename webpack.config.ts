@@ -47,6 +47,21 @@ const config: WebpackConfiguration = {
   },
   module: {
     rules: [
+      // The Angular packages ship partially compiled: the linker finishes them at
+      // build time, the way the Angular CLI does. Without it the app does not
+      // boot ("needs to be compiled using the JIT compiler").
+      {
+        test: /\.[cm]?js$/,
+        include: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['@angular/compiler-cli/linker/babel'],
+            compact: false,
+            cacheDirectory: true,
+          },
+        },
+      },
       // AngularWebpackPlugin installs the AOT compiler behind this loader.
       {
         test: /\.[cm]?[jt]sx?$/,
