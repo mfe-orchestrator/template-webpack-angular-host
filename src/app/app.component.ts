@@ -16,7 +16,7 @@ import { RemoteOutletComponent } from './remote-outlet.component';
 
     <!--
       Example remote, declared in webpack.config.js. Rename "exampleremote" and the
-      slug it points to, or delete both once you wire your own microfrontends.
+      slug it points to, or delete both once you wire your own frontends.
     -->
     <app-remote-outlet [loader]="loadExampleButton" />
 

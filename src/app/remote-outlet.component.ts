@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 
 /**
- * Instantiates a component that lives in a remote microfrontend.
+ * Instantiates a component that lives in a remote frontend.
  *
  * The loader is a plain `() => import('someremote/Something')`: Module Federation
  * turns that into a request to the URL the orchestrator resolved, so this

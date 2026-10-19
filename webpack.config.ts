@@ -89,10 +89,10 @@ const config: WebpackConfiguration = {
         './App': './src/app/app.component.ts',
       },
       remotes: {
-        // One entry per microfrontend this host consumes:
+        // One entry per frontend this host consumes:
         // - the key is the name you import from ("exampleremote/Button"), and it needs
         //   a module declaration in src/globals.d.ts;
-        // - 'example-remote' is the *slug* of the microfrontend in the orchestrator;
+        // - 'example-remote' is the *slug* of the frontend in the orchestrator;
         // - 'exampleremote' is the scope, the remote's own ModuleFederationPlugin
         //   `name`. A remote created by the console from a webpack template is named
         //   after its slug, slashes to underscores and dashes removed.

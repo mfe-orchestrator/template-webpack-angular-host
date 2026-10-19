@@ -3,7 +3,7 @@ import {
   globalVariables,
   identities,
   manifest,
-  type Microfrontend,
+  type Frontend,
 } from '@mfe-orchestrator-hub/client';
 
 @Component({
@@ -16,7 +16,7 @@ import {
         <p class="remote-error">{{ error() }}</p>
       } @else {
         <ul>
-          @for (mfe of microfrontends(); track mfe.slug) {
+          @for (mfe of frontends(); track mfe.slug) {
             <li>
               <strong>{{ mfe.name }}</strong> ({{ mfe.slug }}) — served version
               {{ mfe.version }}
@@ -46,7 +46,7 @@ import {
   ],
 })
 export class ManifestPanelComponent implements OnInit {
-  readonly microfrontends = signal<Microfrontend[]>([]);
+  readonly frontends = signal<Frontend[]>([]);
   readonly variables = signal<Array<[string, string]>>([]);
   readonly error = signal('');
   readonly ids = identities();
@@ -54,7 +54,7 @@ export class ManifestPanelComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       const [data, vars] = await Promise.all([manifest(), globalVariables()]);
-      this.microfrontends.set(data.microfrontends ?? []);
+      this.frontends.set(data.frontends ?? []);
       this.variables.set(Object.entries(vars));
     } catch (error) {
       this.error.set((error as Error).message);
