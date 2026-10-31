@@ -6,6 +6,12 @@ import { configure } from '@mfe-orchestrator-hub/client';
 // receives a real `undefined` and lets the backend resolve the environment from the domain.
 configure(MFE_ENV);
 
+// Application Insights, only when the environment defines APPLICATIONINSIGHTS_CONNECTION_STRING
+// (see src/telemetry.ts). Not awaited: telemetry never holds the app back.
+import { startTelemetry } from './telemetry';
+
+void startTelemetry();
+
 // The dynamic import keeps the rest of the app out of the entry chunk, so Module
 // Federation can negotiate the shared scope before the app boots.
 import('./bootstrap');
